@@ -1,0 +1,22 @@
+package com.mycompany.myname;
+
+/**
+ *
+ * @author JOdenthal2026
+ */
+public class MyName {
+
+    public static void main(String[] args) {
+
+        
+     String myName = new String("Jake Odenthal");
+     System.out.println("My Name is " + (myName)); //prints my name
+     System.out.println("My Name Length is " + myName.length()); //prints out how many letter are in my name
+     System.out.println("My Name in Uppercase is " + myName.toUpperCase()); //prints my name in uppercase
+     System.out.println("My Name in Lowercase is " + myName.toLowerCase());
+     System.out.println("The First letter in My Name is " + myName.charAt(0)); //prints the first letter of my name
+     System.out.println("The Last letter in My Name is " + myName.charAt(myName.length() - 1)); //prints the last letter of my name
+     System.out.println("The Index of the Space between the names is " + myName.indexOf(' ')); //finds and prinst what character the space is at in between my name
+    
+    }
+}
