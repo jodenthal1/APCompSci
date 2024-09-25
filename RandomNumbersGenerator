@@ -1,0 +1,63 @@
+import java.util.*;
+
+public class RandomNumbers {
+
+    public static void main(String[] args) {
+    
+    int number1; //declares the numbers variables
+    int number2;
+    int number3;
+    int number7;
+    int number8;
+    int number9;
+    int number10;
+    int secondnd3; 
+    int die;
+    String str2nd3 = "";
+    
+    String p = ""; //creates new string
+    Random generator = new Random();
+    Scanner scan = new Scanner(System.in);//starts the scanner
+    
+    
+    while(true){
+        p = scan.next();
+        if(p.equalsIgnoreCase("p")){ //if p is inputted then it does whats below
+            number1 = generator.nextInt(8);//generates a random number btw 0-7
+            number2 = generator.nextInt(8);
+            number3 = generator.nextInt(8);
+
+            //number4 = generator.nextInt(7);
+            //number5 = generator.nextInt(10);
+            //number6 = generator.nextInt(10);
+            secondnd3 = generator.nextInt(656);//generates 3 numbers
+
+            number7 = generator.nextInt(10);
+            number8 = generator.nextInt(10);
+            number9 = generator.nextInt(10);
+            number10 = generator.nextInt(10);
+            
+            if(secondnd3 < 10){
+                str2nd3 = "00" + secondnd3; //adds a zero to 1 or 2 place value numbers
+            }else if(secondnd3 < 100){
+                str2nd3 = "0" + secondnd3;
+            }else{
+                str2nd3 = "" + secondnd3;
+            }
+            
+            System.out.println("" + (number1) + (number2) + (number3) + "-" + (str2nd3) + "-" + (number7) + (number8) + (number9) + (number10)); //prints the numbers out to look like a phone number
+            
+        }else if (p.equalsIgnoreCase("r")){ //if r is inputted then it does whats below
+        
+        
+        die = generator.nextInt(6) + 1; //rolls the die and gives a number from 1-6
+        
+        System.out.println(die);
+        
+        }
+        
+    }
+    }
+}
+
+    
