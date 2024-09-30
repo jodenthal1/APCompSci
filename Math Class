@@ -1,0 +1,94 @@
+import java.util.*;
+
+public class MathClass {
+
+    public static void main(String[] args) {
+        
+        
+        //Variables for Trig Functions
+        int zeroTo90;
+        double sin090;
+        double cos090;
+        double tan090;
+        
+        //Variables for The Circle
+        double rCircle;
+        double aCircle;
+        double vSphere;
+        
+        //variables for the ln, Log etc.
+        double zeroTo1000;
+        double sqrt01000;
+        double ln01000;
+        double log01000;
+        
+        //Variables for E = MC^2
+        double E;
+        double M;
+        double C;
+        
+        //Variables for the Scanner
+        double Po = 0;
+        double I = 0;
+        int R = 0;
+        int p = 0;
+        
+        //variables for the user input Question
+        double Integer;
+        double Power;
+        double round;
+        double Total;
+  
+                
+                
+        Random generator = new Random();
+        Scanner scan = new Scanner(System.in);//starts the scanner
+        
+        zeroTo90 = generator.nextInt(91); //Genrates number from 0-90
+        sin090 = roundAvoid(Math.sin(zeroTo90), 5);//takes sin of that number
+        cos090 = roundAvoid(Math.cos(zeroTo90), 5);
+        tan090 = roundAvoid(Math.tan(zeroTo90),5);
+        System.out.println("Number:" + (zeroTo90) + " Sine: " + (sin090) + " Cosine: " + (cos090) + " Tangent: " + (tan090));
+        
+        rCircle = generator.nextDouble(20) + 1;//generates number from 1-20
+        rCircle = roundAvoid(rCircle, 3);
+        aCircle = Math.pow(rCircle, 3);//below is calculating the area of the circle
+        aCircle = roundAvoid(Math.PI * (aCircle), 3);
+        vSphere = Math.pow(rCircle, 3);//below is calculating the volume of the circle
+        vSphere = vSphere * 4/3;
+        vSphere = roundAvoid(Math.PI * (vSphere), 3);
+        System.out.println("Area of The Cirlce is " + aCircle + " With radius: " + rCircle); //prints out area + Volume
+        System.out.println("Volume of The Sphere is " + vSphere + " With radius: " + rCircle);
+        
+        zeroTo1000 = roundAvoid((generator.nextDouble(999999001) + 1000), 5); // generates random number from 1000.0 to 100,000,000,.0 and rounds it to 5 decimals
+        sqrt01000 = roundAvoid(Math.sqrt(zeroTo1000), 5); //calculates the sqrt, ln and log of the random number
+        ln01000 = roundAvoid(Math.log(zeroTo1000), 5);
+        log01000 = roundAvoid(Math.log10(zeroTo1000), 5);
+        System.out.println("The Square Root of " + zeroTo1000 + " is " +  sqrt01000);
+        System.out.println("The Natural log of " + zeroTo1000 + " is " +  ln01000);
+        System.out.println("The log Base 10 of " + zeroTo1000 + " is " +  log01000);
+        
+        System.out.println("How Many Decimal Places The Mass is Rounded to (Must be greater than 10) : ");
+        p = scan.nextInt(); //asks  the user for input on how many decimal places to round to
+        E = zeroTo1000; //random number generated
+        C = 299800000; //speed of light
+        M = roundAvoid(E/(C * C) , p);
+        System.out.println("Mass " + M);
+        
+        System.out.println("Integer Value: "); //asks the user for the integer
+        I = scan.nextDouble(); //saves the input
+        System.out.println("Value The Integer Is Going To Be Raised To: ");
+        Po = scan.nextDouble();
+        System.out.println("How Many Place values the Integer is Going To Be Rounded To: ");
+        R = scan.nextInt();
+        Total = roundAvoid(Math.pow(I, Po), R); //combines the users inputs into the math equation
+        System.out.println(I + " To the " + Po + " = " + Total);
+        
+
+    }
+    
+    public static double roundAvoid(double value, int places) {
+        double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale; //allows for rounding
+    }
+}
