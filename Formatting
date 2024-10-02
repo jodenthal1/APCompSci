@@ -1,0 +1,29 @@
+import java.util.*;
+
+
+
+public class Formatting {
+    
+    
+    
+    
+        
+    public static void main(String[] args) {
+        
+        
+      int totalStudents = 0;
+      int totalGirls = 0;
+      int girlsPercent = 0;
+      int boysPercent = 0;
+      
+      Scanner scan = new Scanner(System.in); //Initiates scanner
+      
+      System.out.println("How Many People go to Your School?");
+      totalStudents = scan.nextInt();
+      System.out.println("How Many Girls go to Your School?");
+      totalGirls = scan.nextInt();
+      girlsPercent = (totalGirls/totalStudents) *100;
+      boysPercent = Math.abs(100 - girlsPercent);
+      System.out.println((girlsPercent) + "% of The students at your school are girls");
+      System.out.println("");
+      
