@@ -1,0 +1,98 @@
+import java.util.*;
+
+import java.text.*;
+
+public class Formatting {
+    
+    
+    
+    
+        
+    public static void main(String[] args) {
+        
+        
+      double totalStudents = 0;
+      double totalGirls = 0;
+      double totalBoys = 0;
+      double girlsPercent = 0;
+      double boysPercent = 0;
+      
+      double americanMoney;
+      double BritishPence;
+      
+      double ZeroTo15;
+      
+      double RandomNumber;
+    
+      
+      
+      Scanner scan = new Scanner(System.in); //Initiates scanner
+      
+      System.out.println("How Many People go to Your School?");
+      totalStudents = scan.nextInt();
+      System.out.println("How Many Girls go to Your School?");
+      totalGirls = scan.nextInt();
+      girlsPercent = roundAvoid(totalGirls/totalStudents , 2);
+      NumberFormat pct = NumberFormat.getPercentInstance();
+      totalBoys = totalStudents - totalGirls;
+      boysPercent = totalBoys / totalStudents;
+      System.out.println((pct.format(girlsPercent)) + " of The students at your school are girls");
+      System.out.println((pct.format(boysPercent)) + " of The students at your school are boys");
+      
+      NumberFormat gbp = NumberFormat.getCurrencyInstance(Locale.UK);
+      System.out.println("How much Money?");
+      americanMoney = scan.nextDouble();
+      System.out.println(gbp.format(americanMoney * .83));
+
+      System.out.println("Give Me a Number 0-15");
+      ZeroTo15 = scan.nextDouble();
+      DecimalFormat n = new DecimalFormat("#.#");
+      if (ZeroTo15 == 1){
+          n = new DecimalFormat("#.#");
+      }else if (ZeroTo15 == 2){
+          n = new DecimalFormat("#.##");
+      }else if (ZeroTo15 == 3){
+          n = new DecimalFormat("#.###");
+      }else if (ZeroTo15 == 4){
+          n = new DecimalFormat("#.####");
+      }else if (ZeroTo15 == 5){
+          n = new DecimalFormat("#.#####");
+      }else if (ZeroTo15 == 6){
+          n = new DecimalFormat("#.######");
+      }else if (ZeroTo15 == 7){
+          n = new DecimalFormat("#.#######");
+      }else if (ZeroTo15 == 8){
+          n = new DecimalFormat("#.########");
+      }else if (ZeroTo15 == 9){
+          n = new DecimalFormat("#.#########");
+      }else if (ZeroTo15 == 10){
+          n = new DecimalFormat("#.##########");
+      }else if (ZeroTo15 == 11){
+          n = new DecimalFormat("#.###########");
+      }else if (ZeroTo15 == 12){
+          n = new DecimalFormat("#.############");
+      }else if (ZeroTo15 == 13){
+          n = new DecimalFormat("#.#############");
+      }else if (ZeroTo15 == 14){
+          n = new DecimalFormat("#.##############");
+      }else if (ZeroTo15 == 15){
+          n = new DecimalFormat("#.###############");
+      } 
+      System.out.println(n.format(Math.PI));
+      
+      
+      Random generator = new Random();
+      RandomNumber = generator.nextDouble(998E10) + 100000000; 
+      DecimalFormat nn = new DecimalFormat("#.#");
+      nn = new DecimalFormat("#,###.#");
+      System.out.println("The Random Number in Sci Notation is: " + RandomNumber);
+      System.out.println("The Random Number Formatted is " + nn.format(RandomNumber));
+    }
+    
+    
+    
+     public static double roundAvoid(double value, int places) {
+        double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale; //allows for rounding
+    }
+}
