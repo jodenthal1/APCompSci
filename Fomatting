@@ -10,7 +10,7 @@ public class Formatting {
         
     public static void main(String[] args) {
         
-        
+        //declares Variables
       double totalStudents = 0;
       double totalGirls = 0;
       double totalBoys = 0;
@@ -32,21 +32,21 @@ public class Formatting {
       totalStudents = scan.nextInt();
       System.out.println("How Many Girls go to Your School?");
       totalGirls = scan.nextInt();
-      girlsPercent = roundAvoid(totalGirls/totalStudents , 2);
+      girlsPercent = roundAvoid(totalGirls/totalStudents , 2); //finds the percent of girls in your school
       NumberFormat pct = NumberFormat.getPercentInstance();
       totalBoys = totalStudents - totalGirls;
-      boysPercent = totalBoys / totalStudents;
+      boysPercent = totalBoys / totalStudents; //finds the total percent of boys in the school
       System.out.println((pct.format(girlsPercent)) + " of The students at your school are girls");
       System.out.println((pct.format(boysPercent)) + " of The students at your school are boys");
       
-      NumberFormat gbp = NumberFormat.getCurrencyInstance(Locale.UK);
+      NumberFormat gbp = NumberFormat.getCurrencyInstance(Locale.UK); //formats the currency
       System.out.println("How much Money?");
       americanMoney = scan.nextDouble();
-      System.out.println(gbp.format(americanMoney * .83));
+      System.out.println(gbp.format(americanMoney * .83)); //finds the currency exchange
 
       System.out.println("Give Me a Number 0-15");
       ZeroTo15 = scan.nextDouble();
-      DecimalFormat n = new DecimalFormat("#.#");
+      DecimalFormat n = new DecimalFormat("#.#"); //fornats pi based on your input
       if (ZeroTo15 == 1){
           n = new DecimalFormat("#.#");
       }else if (ZeroTo15 == 2){
@@ -78,14 +78,14 @@ public class Formatting {
       }else if (ZeroTo15 == 15){
           n = new DecimalFormat("#.###############");
       } 
-      System.out.println(n.format(Math.PI));
+      System.out.println(n.format(Math.PI)); //prints out pi based on your input
       
       
-      Random generator = new Random();
-      RandomNumber = generator.nextDouble(998E10) + 100000000; 
+      Random generator = new Random(); 
+      RandomNumber = generator.nextDouble(998E10) + 100000000; //generates the random number
       DecimalFormat nn = new DecimalFormat("#.#");
-      nn = new DecimalFormat("#,###.#");
-      System.out.println("The Random Number in Sci Notation is: " + RandomNumber);
+      nn = new DecimalFormat("#,###.#"); //formats the random number gebnerated
+      System.out.println("The Random Number in Sci Notation is: " + RandomNumber); //prints out the number
       System.out.println("The Random Number Formatted is " + nn.format(RandomNumber));
     }
     
