@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class Wrappertypes {
+    
+    enum Day {
+        SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY; 
+    }
+
+    enum Month {
+        JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER;
+    }
+
+    public static void main(String[] args) {
+       
+        System.out.println("Days of the Week:");
+        Day[] days = Day.values();
+        for (int i = 0; i < days.length; i++) {
+            System.out.println((i + 1) + ": " + days[i]); //prints out the days
+        }
+
+        System.out.println(); 
+
+    
+        System.out.println("Months of the Year:");
+        Month[] months = Month.values();
+        for (int i = 0; i < months.length; i++) {
+            System.out.println((i + 1) + ": " + months[i]); //prints out thge months
+        }
+
+        System.out.println(); 
+
+        
+        Scanner scanner = new Scanner(System.in); //initializez scanner
+        System.out.print("Enter your CCHS username (including graduation year): ");
+        String username = scanner.nextLine(); //keeps your input as your username
+        
+        
+        String graduationYearStr = username.substring(username.length() - 4);
+        Integer graduationYear = Integer.parseInt(graduationYearStr);//does clac your username
+        
+       
+        int yearAfterGraduation = graduationYear + 1; //adds 1 year to find what one year after you graduate is
+        
+       
+        System.out.println("Your graduation year is: " + graduationYear); //prin6ts out all the calulations
+        System.out.println("The year after your graduation year will be: " + yearAfterGraduation);
+        System.out.println("In computer language, you graduate in: " + Integer.toBinaryString(graduationYear));
+        
+       
+    }
+}
