@@ -1,0 +1,98 @@
+import java.text.*;
+/**
+ *
+ * @author JOdenthal2026
+ */
+public class CarClass {
+
+    public static void main(String[] args) {
+       
+        Car Bug = new Car(); //creates new car
+        Bug.setCarBrand("VW Bug"); //names the car brand
+        Bug.setMaxSpeed(120); //sets stats
+        Bug.setCarHorsePower(174);
+        Bug.setCarPrice(21000);
+        System.out.println(Bug); //prints out the stats
+        
+        Car Prius = new Car();
+        Prius.setCarBrand("Toyota Prius");
+        Prius.setMaxSpeed(100);
+        Prius.setCarHorsePower(150);
+        Prius.setCarPrice(28000);
+        System.out.println(Prius);
+        
+        Car BMWi8 = new Car();
+        BMWi8.setCarBrand("BMW I8");
+        BMWi8.setMaxSpeed(100);
+        BMWi8.setCarHorsePower(369);
+        BMWi8.setCarPrice(143400);
+        System.out.println(BMWi8);
+        
+        Car TeslaModel3 = new Car();
+        TeslaModel3.setCarBrand("Tesla Model 3");
+        TeslaModel3.setMaxSpeed(100);
+        TeslaModel3.setCarHorsePower(510);
+        TeslaModel3.setCarPrice(39000);
+        System.out.println(TeslaModel3);
+    }
+}
+    
+    class Car{
+    
+    private String brand = ""; //defines the variables nessasary for the car
+    private int maxSpeed = 0;
+    private int horsePower = 0;
+    private double price = 0;
+    
+    public Car (){
+        
+    
+    }
+    
+    public void setCarPrice(int inPrice){ //creates the set car argument
+        price = inPrice;
+    }
+    
+    public double getCarPrice(){ //creates argument to get the car price
+        return price;
+
+    }
+    
+    public void setCarHorsePower(int inHorsePower){
+        horsePower = inHorsePower;
+    }
+    
+    public int getCarHorsePower(){
+        return horsePower;
+
+    }
+    
+    public void setCarBrand(String inBrand){
+        brand = inBrand;
+    }
+    public String getCarBrand(){
+        return brand;
+    }
+    
+    public void setMaxSpeed(int inSpeed){
+        maxSpeed = inSpeed;
+    }
+    public int getMaxSpeed(){
+        return maxSpeed;
+    }
+    
+    public String toString(){
+    String result = "";
+    NumberFormat fmt = NumberFormat.getCurrencyInstance(); //formats the price of the car
+    result = "Car Brand: " + brand + ", Top Speed: " + maxSpeed + "MPH " + ", Horse Power: " + horsePower +", Price: " + fmt.format(price); // format to print out the details of the car
+    return result; //prints out the details of the car
+    
+    }
+    
+    
+    
+    }
+    
+    
+    
+
