@@ -1,7 +1,17 @@
 import java.text.*;
-/**
- *
- * @author JOdenthal2026
+/*
+
+1) What is the difference between a class and an object?
+
+A class is a blueprint for creating objects, while an object is an instance of a class.
+
+2) What happens when you pass an object to a print or println method?
+
+Passing an object to print or println calls its toString() method to get a string representation.
+
+3) What is the scope of a variable in a method? In a class?
+
+Variables in a method are scoped locally to that method, while class variables are accessible throughout the class.
  */
 public class CarClass {
 
@@ -95,4 +105,3 @@ public class CarClass {
     
     
     
-
