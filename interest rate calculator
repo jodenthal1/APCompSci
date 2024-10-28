@@ -1,0 +1,85 @@
+import java.util.*;
+
+/**
+ *
+ * @author JOdenthal2026
+ */
+public class InterestRateCalculator {
+
+    
+    
+    
+    public static void main(String[] args) {
+        
+    int initialMoney = 0;
+    int Months = 10;
+    
+
+        Scanner scan = new Scanner(System.in); //Initiates scanner
+        System.out.println("How Much money are you borrowing? ");
+        initialMoney = scan.nextInt();
+        RateCalc rc = new RateCalc();
+        
+        rc.setAmtBorrowed(initialMoney);
+        rc.setNumMonths(Months);
+       System.out.println(rc);
+        System.out.println("Months: " + rc.getNumMonths());
+        System.out.println("Changed Amount : " + rc.getChangedAmount());
+        System.out.println("Changed Amount : " + rc.getMonthlyAmt(2));
+        System.out.println("Changed Amount : " + rc.getMonthlyAmt(3));
+        System.out.println("Changed Amount : " + rc.getMonthlyAmt(4));
+        System.out.println("Changed Amount : " + rc.getMonthlyAmt(5));
+        System.out.println("Changed Amount : " + rc.getMonthlyAmt(6));
+        System.out.println("Changed Amount : " + rc.getMonthlyAmt(7));
+        System.out.println("Changed Amount : " + rc.getMonthlyAmt(8));
+        System.out.println("Changed Amount : " + rc.getMonthlyAmt(9));
+        System.out.println("Changed Amount : " + rc.getMonthlyAmt(10));
+        
+    }
+}
+
+class RateCalc{
+    private double amtBorrowed = 0.0;
+    private final double rate = 0.9;
+    private final double bigRate = 1.1;
+    private int numMonths = 0;
+    private double ChangedAmount = 0.0;
+    
+    public void setNumMonths(int inMonths){
+        numMonths = inMonths;
+    }
+    
+    public void setAmtBorrowed(double inAmt){
+        amtBorrowed = inAmt;
+    }
+    
+    public double getChangedAmount(){
+        ChangedAmount = amtBorrowed * rate;
+        ChangedAmount = ChangedAmount * bigRate;
+        return ChangedAmount;
+        
+    }
+    
+    public int getNumMonths(){
+        
+        return numMonths;
+        
+    }
+    
+    public double getMonthlyAmt(int month){ 
+        ChangedAmount = amtBorrowed * rate;
+        ChangedAmount = ChangedAmount * bigRate;
+        amtBorrowed = ChangedAmount;
+        return ChangedAmount;
+       
+    }
+    
+    public String toString(){
+        String result = new String("");
+        result = "amtoun borrowed: " + amtBorrowed + "\n" + 
+                "big rate: " + bigRate;
+        return result;
+    }
+    
+}
+
