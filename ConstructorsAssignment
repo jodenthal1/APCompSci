@@ -1,0 +1,82 @@
+public class ConstructorsAssignment {
+
+    public static void main(String[] args) {
+        Course bio = new Course(); //creates a new empty course
+        bio.setTitle("AP Biology");// sets the values for bio
+        bio.setPoints(10);
+        bio.setCode("ZXCV");
+        bio.setInstructor("Mrs. Lopatka");
+        System.out.println(bio); //Calls the toString
+                
+       Course calc = new Course("AP Calculus AB", "ABCD", "Dr. Paye", 10); // creates a new course  called Calc with the intrusctors
+       System.out.println(calc); 
+       
+       Course spanish = new Course("Spanish 2"); //creates new course called spanish 2 
+       System.out.println(spanish);
+       
+        
+    }
+    
+    
+}
+
+class Course {
+    private String strCourseTitle = "AP Biology"; //variables needed to store the constructor data
+    private String strCourseCode = "AP BIO";
+    private String strInstructor = "Mrs. Lopatka";
+    private int pointsTotal = 10;
+
+
+    public Course(String inTitle, String inCode, String inInstructor, int inPoints){ //course will all the Construcors
+        strCourseTitle = inTitle;
+        strCourseCode = inCode;
+        strInstructor = inInstructor;
+        pointsTotal = inPoints;
+    }
+    public Course(){ //course without any construcotrs
+        strCourseTitle = "";
+        strCourseCode = "";
+        strInstructor = "";
+        pointsTotal = 0;
+    }
+    public Course(String inTitle){ //Creates course with just the title construcor
+        strCourseTitle = inTitle;
+        strCourseCode = "";
+        strInstructor = "";
+        pointsTotal = 0;
+    }
+    
+    public void setTitle(String inTitle){ //allows for the set Title
+        strCourseTitle = inTitle;
+    }
+    public String getTitle(){ //Allows for the get Ttitle
+        return strCourseTitle;
+    }
+    public void setCode(String inCode){
+        strCourseCode = inCode;
+    }
+    public String getCode(){
+        return strCourseCode;
+    }
+    public void setInstructor(String inInstructor){
+        strInstructor = inInstructor;
+    }
+    public String getInstructor(){
+        return strInstructor;
+    }
+    public void setPoints(int inPoints){
+        pointsTotal = inPoints;
+    }
+    public int getPoints(){
+        return pointsTotal;
+    }
+    
+    public String toString(){ //prints out the info about the class in the order below
+        String result = "";
+        result = "Course Title: " + strCourseTitle + "\n" + 
+              "Course Code: " + strInstructor + "\n" +
+                "Course Teacher :" + strCourseCode + "\n" +
+                "Total Points: " + pointsTotal + "\n";
+        return result;
+    }
+}
