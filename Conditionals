@@ -1,0 +1,92 @@
+import java.util.*;
+
+
+public class ConditionalsAssignment {
+    static int count = 0;  // Item count in the cart
+    static double Budget = 250.00;  // Maximum budget
+    static double currentCost = 0;  // Total spent so far
+    
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);  // Scanner for user input
+        String input = "";  // User's item input
+        double cost = 0.0;  // Cost of the current item
+        boolean found = false;  // Flag to check if item is found
+        int i = 0;  // Index for looping through items
+        Item temp = null;  // Temporary Item object to hold the current item
+        ArrayList items = new ArrayList();  // List to store available items
+        
+        // Adding items to the store
+        Item Hat = new Item("Hat", 25.99);
+        items.add(Hat);
+        Item TShirt = new Item("TShirt", 29.99);
+        items.add(TShirt);
+        Item Shoes = new Item("Shoes", 125.99);
+        items.add(Shoes);
+        Item Jeans = new Item("Jeans", 60.99);
+        items.add(Jeans);
+        Item Jacket = new Item("Jacket", 250.00);
+        items.add(Jacket);
+        Item Shorts = new Item("Shorts", 75.99);
+        items.add(Shorts);
+        Item Blouse = new Item("Blouse", 88.99);
+        items.add(Blouse);
+        
+        // Main loop to interact with the user
+        while(true){
+            System.out.println("What do you want to buy?");
+            input = scan.next();  // Get user input
+
+            // Search for the item in the list
+            while(!found){
+                temp = (Item)items.get(i);  // Get current item
+                if(temp.getName().equalsIgnoreCase(input)){
+                    cost = temp.getPrice();  // Get the cost of the item
+                    found = true;  // Set the found flag to true
+                    
+                    // Check if the current item will exceed the budget
+                    if(cost + currentCost > Budget){
+                        System.out.println(currentCost + " Warning Exceeding Max Budget With Purchase of " + cost);
+                    } else {
+                        // Update current cost and item count if within budget
+                        currentCost = cost + currentCost;
+                        count++;
+                    }
+                }
+                i++;  // Move to the next item in the list
+            }
+
+            // Reset for the next search
+            found = false;
+            i = 0;
+
+            // Display the item and the current purchase summary
+            System.out.println(temp.getName() + " price "+ temp.getPrice() + " Count: " + count);
+        }
+    }
+}
+
+// Item class to represent each item in the store
+class Item {
+    private String strName = "";  // Item name
+    private double dblPrice = 0;  // Item price
+    
+    // Constructor to initialize the item with a name and price
+    public Item(String inName, double inPrice){
+        strName = inName;
+        dblPrice = inPrice;
+    }
+    
+    // Setter and getter methods for price
+    public void setPrice(double inPrice){
+        dblPrice = inPrice;
+    }
+
+    public double getPrice(){
+        return dblPrice;
+    }
+    
+    // Getter method for item name
+    public String getName(){
+        return strName;
+    }
+}
