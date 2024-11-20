@@ -1,0 +1,30 @@
+import java.util.*;
+/**
+ *
+ * @author JOdenthal2026
+ */
+public class ShoppingList {
+
+    public static void main(String[] args) {
+        
+        Scanner scan = new Scanner(System.in);
+        ArrayList shoppingList = new ArrayList();
+        String item = "";
+        String removeItem = "";
+        while(!item.equalsIgnoreCase("Q")){
+            System.out.println("What would you like to buy?");
+            item = scan.next(); 
+            if(item.equalsIgnoreCase("R")){
+                System.out.println("What would you like to Remove?");
+                removeItem = scan.next();
+                shoppingList.remove(removeItem);
+            } else if(!item.equalsIgnoreCase("Q")){
+                shoppingList.add(item);
+            }
+        }
+        //System.out.println(shoppingList);
+        for(int i = 0; i <shoppingList.size(); i++){
+            System.out.println((1+i) + " " + shoppingList.get(i));
+        }
+    }
+}
