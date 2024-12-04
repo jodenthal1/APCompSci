@@ -1,0 +1,63 @@
+    public static void main(String[] args) {
+        
+        System.out.println("Part A");
+         for (int row = 10; row > 0; row--) { // Start from 10 stars, decrement down to 1
+            for (int star = 0; star < row; star++) {
+                System.out.print("*");
+            }
+            System.out.println(); // Move to the next line
+        }
+         
+         System.out.println("Part B");
+         int space =  1;
+         for(int row = 1; row < 10; row++){
+            for (space =  9; space > row; space--){
+                System.out.print(" ");
+            }
+            for(int star = 1; star <= row; star++){
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+         
+         System.out.println("Part C");
+         for(int row = 9; row > 0; row--){
+             for(space = 0; space < (9 - row); space++){
+                 System.out.print(" ");
+             }
+             for(int star = 0; star < row; star++){
+                 System.out.print("*");
+             }
+             
+             System.out.println();
+         }
+         
+         //TOP PART OF D
+         System.out.println("Part D");
+         for(int row = 1; row <= 5; row++){
+             for(space = 0; space < (5 - row); space++){
+                 System.out.print(" ");
+             }
+             for(int star = 1; star < 2 * row; star++){
+                 System.out.print("*");
+             }
+             System.out.println();
+             
+         }
+         //BOTTOM PART OF D
+         for(int row = 5; row >= 1; row--){
+             for(space = 0; space < (5 - row); space++){
+                 System.out.print(" ");
+             }
+             for(int star = (2 * row) - 1; star > 0; star--){
+                 System.out.print("*");
+             }
+             System.out.println();    
+             
+         }
+
+                       
+    }
+    
+}
+
