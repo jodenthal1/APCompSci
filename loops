@@ -1,63 +1,62 @@
-    public static void main(String[] args) {
-        
-        System.out.println("Part A");
-         for (int row = 10; row > 0; row--) { // Start from 10 stars, decrement down to 1
-            for (int star = 0; star < row; star++) {
-                System.out.print("*");
-            }
-            System.out.println(); // Move to the next line
-        }
-         
-         System.out.println("Part B");
-         int space =  1;
-         for(int row = 1; row < 10; row++){
-            for (space =  9; space > row; space--){
-                System.out.print(" ");
-            }
-            for(int star = 1; star <= row; star++){
-                System.out.print("*");
-            }
-            System.out.println();
-        }
-         
-         System.out.println("Part C");
-         for(int row = 9; row > 0; row--){
-             for(space = 0; space < (9 - row); space++){
-                 System.out.print(" ");
-             }
-             for(int star = 0; star < row; star++){
-                 System.out.print("*");
-             }
-             
-             System.out.println();
-         }
-         
-         //TOP PART OF D
-         System.out.println("Part D");
-         for(int row = 1; row <= 5; row++){
-             for(space = 0; space < (5 - row); space++){
-                 System.out.print(" ");
-             }
-             for(int star = 1; star < 2 * row; star++){
-                 System.out.print("*");
-             }
-             System.out.println();
-             
-         }
-         //BOTTOM PART OF D
-         for(int row = 5; row >= 1; row--){
-             for(space = 0; space < (5 - row); space++){
-                 System.out.print(" ");
-             }
-             for(int star = (2 * row) - 1; star > 0; star--){
-                 System.out.print("*");
-             }
-             System.out.println();    
-             
-         }
+   public static void main(String[] args) {
 
-                       
+    // Part A: Print a right-aligned descending triangle of stars
+    System.out.println("Part A");
+    for (int row = 10; row > 0; row--) { // Start with 10 stars and decrease each row
+        for (int star = 0; star < row; star++) { // Print 'row' number of stars
+            System.out.print("*");
+        }
+        System.out.println(); // Move to the next line after printing stars in the current row
     }
-    
-}
 
+    // Part B: Print a left-aligned ascending triangle of stars with spaces for alignment
+    System.out.println("Part B");
+    int space = 1; // Variable for tracking spaces before stars
+    for (int row = 1; row < 10; row++) { // Rows increment from 1 to 9
+        for (space = 9; space > row; space--) { // Print decreasing spaces
+            System.out.print(" ");
+        }
+        for (int star = 1; star <= row; star++) { // Print increasing stars
+            System.out.print("*");
+        }
+        System.out.println(); // Move to the next line
+    }
+
+    // Part C: Print an inverted right-aligned triangle of stars
+    System.out.println("Part C");
+    for (int row = 9; row > 0; row--) { // Rows decrement from 9 to 1
+        for (space = 0; space < (9 - row); space++) { // Print increasing spaces
+            System.out.print(" ");
+        }
+        for (int star = 0; star < row; star++) { // Print decreasing stars
+            System.out.print("*");
+        }
+        System.out.println(); // Move to the next line
+    }
+
+    // Part D: Print a diamond shape
+    System.out.println("Part D");
+
+    // Top part of the diamond
+    for (int row = 1; row <= 5; row++) { // Rows increment from 1 to 5
+        for (space = 0; space < (5 - row); space++) { // Print spaces to align stars in the center
+            System.out.print(" ");
+        }
+        for (int star = 1; star < 2 * row; star++) { // Print an increasing number of stars
+            System.out.print("*");
+        }
+        System.out.println(); // Move to the next line
+    }
+
+    // Bottom part of the diamond
+    for (int row = 5; row >= 1; row--) { // Rows decrement from 5 to 1
+        for (space = 0; space < (5 - row); space++) { // Print spaces to align stars in the center
+            System.out.print(" ");
+        }
+        for (int star = (2 * row) - 1; star > 0; star--) { // Print a decreasing number of stars
+            System.out.print("*");
+        }
+        System.out.println(); // Move to the next line
+    }
+}
+}
