@@ -29,6 +29,8 @@ public class SemesterFinalProject {
         
         Scanner scan = new Scanner(System.in);  // Scanner for user input
         System.out.println("Number Guessing Game");
+        System.out.println("To play this game pick a mode: Easy, Medium or Hard. Easy Mode contains Number 1-25. Medim mode contains Numbers 1-50. Hard mode contains Numbers 1-100.\n"
+                + "Then you can begin guessing. The lower the amount of guesses it takes for you to guess the number the lower score you get. The lower the score the better it is.");
         //There are three modes that the user can select: Easy, Medium or Hard. The computer then randomly generates a number.
         System.out.println("Would you like to play Easy, Medium or Hard?");
         strGameMode = scan.next();
