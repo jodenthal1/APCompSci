@@ -1,0 +1,119 @@
+import java.util.*;
+import java.io.*;
+/*
+
+There are three modes that the user can select: Easy, Medium or Hard. The computer then randomly generates a number. 
+The user guesses a number and the computer replies back with too high or too low.
+And at the end when they guess the number the computer says Correct! And gives them a score.
+
+Easy is 1-25
+Medium is 1-50
+Hard  is 1-100
+
+Conditionals for Response
+Need input validation
+Random class for number generator
+
+ @author JOdenthal2026
+ */
+public class SemesterFinalProject {
+
+    public static void main(String[] args) {
+        
+        //variables for various methpods and counters
+        boolean answered = false; 
+        String strGameMode = "";
+        String strResponse = "";
+        int intGuess = -1;
+        int score = 0;
+        
+        Scanner scan = new Scanner(System.in);  // Scanner for user input
+        System.out.println("Number Guessing Game");
+        //There are three modes that the user can select: Easy, Medium or Hard. The computer then randomly generates a number.
+        System.out.println("Would you like to play Easy, Medium or Hard?");
+        strGameMode = scan.next();
+        NumberGuess ng = new NumberGuess(strGameMode);
+        //System.out.println(ng);
+        
+        //The user guesses a number and the computer replies back with too high or too low.
+        do {
+            System.out.print("Please enter a positive integer number: ");
+            if (scan.hasNextInt()) {
+                intGuess = scan.nextInt();
+            } else {
+                System.out.println("please try again.");
+                scan.nextLine();
+            } 
+        }while((intGuess <= 0));
+        strResponse = ng.processGuess(intGuess);
+        while(!answered){
+            
+            //And at the end when they guess the number the computer says Correct!
+            if(strResponse.equals("Correct!")){
+                System.out.println("Correct!");
+                score = (ng.getCount()) * 25;
+                //And gives them a score.
+                System.out.println("Score is: " + score);
+                answered = true;
+            }else{
+                System.out.println(strResponse);
+                System.out.println("please try again.");
+                intGuess = scan.nextInt();
+                strResponse = ng.processGuess(intGuess);
+            }
+        }
+     }
+   }
+
+class NumberGuess{
+    private String mode = "";
+    private int userGuess = 0;
+    private int randomNumber = 0;
+    private Random rand = new Random();
+    private int count = 0;
+
+    public NumberGuess(String inMode){ //takes the users guess
+        mode = inMode;
+        randomNumber = GenerateNumber();
+    }
+    
+    public int getCount(){ //allows for the "Score" to be calculated
+        return count;
+    }
+    
+    public String processGuess(int inGuess){ //judeges weather the users guess is too high low or correct
+        String result = "";
+        count++;
+        if(inGuess < randomNumber){
+            result = "Too Low Guess Again";
+        }
+        if(inGuess > randomNumber){
+            result = "Too High Guess Again";
+        }
+        if(inGuess == randomNumber){
+            result = "Correct!";
+        }
+        return result;
+        
+    }
+    
+    private int GenerateNumber(){ //generates a random number btw the given value per the game mode
+        int result = 0;
+        if(mode.equalsIgnoreCase("Easy")){
+            result = rand.nextInt(25) + 1;
+        }else if(mode.equalsIgnoreCase("Medium")){
+            result = rand.nextInt(50) + 1;
+        }else if(mode.equalsIgnoreCase("Hard")){
+            result = rand.nextInt(100) + 1;
+        }
+        return result;
+    }
+    
+    
+    
+    public String toString(){ //toString for testing
+        String result = "";
+        result = "randomNumber = " + randomNumber;
+        return result;
+    }
+}
