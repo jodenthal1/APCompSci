@@ -1,0 +1,72 @@
+import java.util.*;
+
+public class S1FinalCode {
+    public static void main(String[] args) {
+        //makes an array list to hold all of the cards
+        ArrayList<Card> possibleCards = new ArrayList<>();
+
+        //makes 5 cards
+        while (possibleCards.size() < 5) {
+            Card nc = new Card();
+            boolean Duplicate = false;
+
+            // makes sure there is no pulicates
+            for (Card card : possibleCards) {
+                if (card.getSuit().equals(nc.getSuit()) && card.getFaceValue() == nc.getFaceValue()) {
+                    Duplicate = true;
+                    break;
+                }
+            }
+
+            if (!Duplicate) {
+                possibleCards.add(nc);
+            }
+        }
+
+        //prints out every and then finds the highest value card
+        Card greatestValue = possibleCards.get(0);
+        System.out.println("Dealt Cards:");
+        for (Card card : possibleCards) {
+            System.out.println(card);
+            if (card.getFaceValue() > greatestValue.getFaceValue()) {
+                greatestValue = card;
+            }
+        }
+
+        // Prints the card with the highest value
+        System.out.println("\n Card with the greatest value: " + greatestValue);
+    }
+}
+
+//Class that reprresents the card
+class Card {
+    //declares the card value and suit
+    private String strSuit;
+    private int faceValue;
+
+    //declares what the suits can be
+    private static final String[] Suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
+
+    //generates a random card
+    public Card() {
+        Random random = new Random();
+        this.strSuit = Suits[random.nextInt(Suits.length)]; // genereates a random suit
+        this.faceValue = random.nextInt(13) + 1; // generates a random facevaule
+    }
+
+    //returns the suit
+    public String getSuit() {
+        return strSuit;
+    }
+
+    //returns the facevalue
+    public int getFaceValue() {
+        return faceValue;
+    }
+
+    //toString
+    @Override
+    public String toString() {
+        return faceValue + " of " + strSuit;
+    }
+}
