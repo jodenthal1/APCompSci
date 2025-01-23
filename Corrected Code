@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+public class Mavenproject1 {
+
+    /**
+     * Main method for user interaction and choice selection.
+     * @param args
+     */
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("This program calculates round item numbers such as \n" +
+                "1 - Area of a circle (pi r^2)\n" +
+                "2 - Volume of a sphere (4/3 pi r^3)\n" +
+                "3 - Volume of a cone (pi r^2 h/3)\n" +
+                "4 - Volume of a column (pi r^2 h)");
+        System.out.println("Type the number for which one you want to calculate:");
+        int i = s.nextInt();
+
+        switch (i) {
+            case 1 -> cCalc(s);   // Area of a circle
+            case 2 -> sCalc(s);   // Volume of a sphere
+            case 3 -> cCalc2(s);  // Volume of a cone
+            case 4 -> cCalc3(s);  // Volume of a column
+            default -> System.out.println("Invalid choice. Please choose a valid option.");
+        }
+
+        s.close();
+    }
+
+    // Method to calculate the area of a circle
+    public static void cCalc(Scanner s) {
+        System.out.println("Enter the radius of your circle:");
+        int r = s.nextInt();
+        double result = Math.PI * Math.pow(r, 2);
+        System.out.println("Area of the circle: " + result);
+    }
+
+    // Method to calculate the volume of a sphere
+    public static void sCalc(Scanner s) {
+        System.out.println("Enter the radius of your sphere:");
+        int r = s.nextInt();
+        double result = (4.0 / 3.0) * Math.PI * Math.pow(r, 3);
+        System.out.println("Volume of the sphere: " + result);
+    }
+
+    // Method to calculate the volume of a cone
+    public static void cCalc2(Scanner s) {
+        System.out.println("Enter the radius and height of your cone:");
+        int r = s.nextInt();
+        int h = s.nextInt();
+        double result = (Math.PI * Math.pow(r, 2) * h) / 3.0;
+        System.out.println("Volume of the cone: " + result);
+    }
+
+    // Method to calculate the volume of a column
+    public static void cCalc3(Scanner s) {
+        System.out.println("Enter the radius and height of your column:");
+        int r = s.nextInt();
+        int h = s.nextInt();
+        double result = Math.PI * Math.pow(r, 2) * h;
+        System.out.println("Volume of the column: " + result);
+    }
+}
