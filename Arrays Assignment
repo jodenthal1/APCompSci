@@ -1,0 +1,36 @@
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class ArrayAssignment {
+    public static void main(String[] args) {
+        // Step 1: Initialize the array with all 7 days of the week
+        String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
+        // Step 2: Print all days, one per row
+        System.out.println("All days of the week:");
+        for (String day : weekDays) {
+            System.out.println(day);
+        }
+
+        // Step 3: Resize the array to 5 elements (keeping only weekdays)
+        weekDays = Arrays.copyOf(weekDays, 5); // Resizing: Keeping only the first 5 elements (Monday to Friday)
+
+        // Step 4: Print only the weekdays
+        System.out.println("\nWeekdays only:");
+        for (String day : weekDays) {
+            System.out.println(day);
+        }
+
+        // Step 5: Shuffle the weekdays
+        List<String> weekDaysList = Arrays.asList(weekDays);
+        Collections.shuffle(weekDaysList);
+        weekDaysList.toArray(weekDays); // Convert back to array
+
+        // Step 6: Print shuffled weekdays
+        System.out.println("\nShuffled weekdays:");
+        for (String day : weekDays) {
+            System.out.println(day);
+        }
+    }
+}
