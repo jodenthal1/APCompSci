@@ -1,0 +1,79 @@
+import java.util.Random;
+
+public class App {
+    public static void main(String[] args) {
+        // Suits and ranks for the deck of cards
+        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        String[] ranks = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
+
+        // Create the deck as a 2D array (4 suits x 13 ranks)
+        String[][] deckOfCards = new String[4][13];
+
+        // Fill the deck
+        for (int i = 0; i < suits.length; i++) {
+            for (int j = 0; j < ranks.length; j++) {
+                deckOfCards[i][j] = ranks[j] + " of " + suits[i];
+            }
+        }
+
+        // Shuffle the deck
+        shuffleDeck(deckOfCards);
+
+        // Deal 4 hands of 5 cards each
+        String[][] hands = new String[4][5];
+        int cardIndex = 0;
+
+        // Flatten the 2D deck into a 1D array for easier dealing
+        String[] flatDeck = new String[52];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 13; j++) {
+                flatDeck[cardIndex++] = deckOfCards[i][j];
+            }
+        }
+
+        // Shuffle the flat deck
+        shuffleArray(flatDeck);
+
+        // Deal the hands
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 5; j++) {
+                hands[i][j] = flatDeck[i * 5 + j];
+            }
+        }
+
+        // Print the hands
+        for (int i = 0; i < 4; i++) {
+            System.out.println("Hand " + (char)('A' + i) + ": ");
+            for (String card : hands[i]) {
+                System.out.println(card);
+            }
+            System.out.println();
+        }
+    }
+
+    // Method to shuffle a 2D deck (flattened to a 1D array)
+    public static void shuffleDeck(String[][] deck) {
+        Random rand = new Random();
+        for (int i = 0; i < deck.length; i++) {
+            for (int j = 0; j < deck[i].length; j++) {
+                int randomSuit = rand.nextInt(4);
+                int randomRank = rand.nextInt(13);
+                // Swap cards
+                String temp = deck[i][j];
+                deck[i][j] = deck[randomSuit][randomRank];
+                deck[randomSuit][randomRank] = temp;
+            }
+        }
+    }
+
+    // Method to shuffle a 1D array (for dealing the cards)
+    public static void shuffleArray(String[] array) {
+        Random rand = new Random();
+        for (int i = 0; i < array.length; i++) {
+            int randomIndex = rand.nextInt(array.length);
+            String temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
+    }
+}
