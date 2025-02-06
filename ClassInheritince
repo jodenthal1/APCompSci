@@ -1,0 +1,219 @@
+package com.mycompany.classinheritence;
+
+    public class ClassInheritence {
+        public static void main(String[] args) {
+            // Create instances of different vehicles
+            SportsCar ferrari = new SportsCar("Ferrari", 200, 2, 3.2);
+            ElectricCar tesla = new ElectricCar("Tesla", 150, 5, 300);
+            Sailboat sailboat = new Sailboat("Yamaha", 30, 4, 500);
+            SpeedBoat speedBoat = new SpeedBoat("Bayliner", 70, 6, 250);
+            JetPlane boeing = new JetPlane("Boeing", 600, 200, 60, 35000);
+            PropellerPlane cessna = new PropellerPlane("Cessna", 180, 4, 36, 2);
+            Hovercraft hover = new Hovercraft("HoverTech", 50, 10, true);
+            Submarine sub = new Submarine("DeepSea", 25, 30, 1000);
+
+            // Print vehicle details
+            System.out.println(ferrari);
+            System.out.println(tesla);
+            System.out.println(sailboat);
+            System.out.println(speedBoat);
+            System.out.println(boeing);
+            System.out.println(cessna);
+            System.out.println(hover);
+            System.out.println(sub);
+        }
+    }
+
+    // Base Vehicle Class
+    abstract class Vehicle {
+        protected String brand;
+        protected double speed; // Speed in mph
+        protected int capacity;
+
+        public Vehicle(String brand, double speed, int capacity) {
+            this.brand = brand;
+            this.speed = speed;
+            this.capacity = capacity;
+        }
+
+        public abstract void move();
+
+        @Override
+        public String toString() {
+            return "Brand: " + brand + ", Speed: " + speed + " mph, Capacity: " + capacity;
+        }
+    }
+
+    // Car Base Class
+    class Car extends Vehicle {
+        protected int wheels;
+
+        public Car(String brand, double speed, int capacity, int wheels) {
+            super(brand, speed, capacity);
+            this.wheels = wheels;
+        }
+
+        @Override
+        public void move() {
+            System.out.println(brand + " car is driving at " + speed + " mph.");
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", Wheels: " + wheels;
+        }
+    }
+
+    // Specific Car Classes
+    class SportsCar extends Car {
+        private double acceleration; // 0-60 mph time
+
+        public SportsCar(String brand, double speed, int capacity, double acceleration) {
+            super(brand, speed, capacity, 4);
+            this.acceleration = acceleration;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", 0-60 mph: " + acceleration + " sec";
+        }
+    }
+
+    class ElectricCar extends Car {
+        private double batteryRange; // in miles
+
+        public ElectricCar(String brand, double speed, int capacity, double batteryRange) {
+            super(brand, speed, capacity, 4);
+            this.batteryRange = batteryRange;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", Battery Range: " + batteryRange + " miles";
+        }
+    }
+
+    // Boat Classes
+    class Boat extends Vehicle {
+        protected String hullType;
+
+        public Boat(String brand, double speed, int capacity, String hullType) {
+            super(brand, speed, capacity);
+            this.hullType = hullType;
+        }
+
+        @Override
+        public void move() {
+            System.out.println(brand + " boat is sailing at " + speed + " mph.");
+        }
+    }
+
+    class Sailboat extends Boat {
+        private int sailArea; // in square feet
+
+        public Sailboat(String brand, double speed, int capacity, int sailArea) {
+            super(brand, speed, capacity, "Single Hull");
+            this.sailArea = sailArea;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", Sail Area: " + sailArea + " sq ft";
+        }
+    }
+
+    class SpeedBoat extends Boat {
+        private int horsepower;
+
+        public SpeedBoat(String brand, double speed, int capacity, int horsepower) {
+            super(brand, speed, capacity, "V-Hull");
+            this.horsepower = horsepower;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", Horsepower: " + horsepower;
+        }
+    }
+
+    // Airplane Classes
+    class Airplane extends Vehicle {
+        protected int wingspan;
+
+        public Airplane(String brand, double speed, int capacity, int wingspan) {
+            super(brand, speed, capacity);
+            this.wingspan = wingspan;
+        }
+
+        @Override
+        public void move() {
+            System.out.println(brand + " airplane is flying at " + speed + " mph.");
+        }
+    }
+
+    class JetPlane extends Airplane {
+        private double maxAltitude; // in feet
+
+        public JetPlane(String brand, double speed, int capacity, int wingspan, double maxAltitude) {
+            super(brand, speed, capacity, wingspan);
+            this.maxAltitude = maxAltitude;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", Max Altitude: " + maxAltitude + " ft";
+        }
+    }
+
+    class PropellerPlane extends Airplane {
+        private int engineCount;
+
+        public PropellerPlane(String brand, double speed, int capacity, int wingspan, int engineCount) {
+            super(brand, speed, capacity, wingspan);
+            this.engineCount = engineCount;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", Engine Count: " + engineCount;
+        }
+    }
+
+    // Unique Vehicles
+    class Hovercraft extends Vehicle {
+        private boolean amphibious;
+
+        public Hovercraft(String brand, double speed, int capacity, boolean amphibious) {
+            super(brand, speed, capacity);
+            this.amphibious = amphibious;
+        }
+
+        @Override
+        public void move() {
+            System.out.println(brand + " hovercraft is gliding at " + speed + " mph.");
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", Amphibious: " + amphibious;
+        }
+    }
+
+    class Submarine extends Vehicle {
+        private double maxDepth; // in feet
+
+        public Submarine(String brand, double speed, int capacity, double maxDepth) {
+            super(brand, speed, capacity);
+            this.maxDepth = maxDepth;
+        }
+
+        @Override
+        public void move() {
+            System.out.println(brand + " submarine is diving at " + speed + " mph.");
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", Max Depth: " + maxDepth + " ft";
+        }
+    }
