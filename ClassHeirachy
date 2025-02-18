@@ -1,0 +1,105 @@
+public class ClassInheritenceHeiarchy {
+
+    // Base class for all foods
+    public abstract static class Food {
+        private String name;
+        private int calories;
+
+        // Constructor
+        public Food(String name, int calories) {
+            this.name = name;
+            this.calories = calories;
+        }
+
+        // Getter methods
+        public String getName() {
+            return name;
+        }
+
+        public int getCalories() {
+            return calories;
+        }
+
+        // Abstract method to be implemented by subclasses
+        public abstract void cook();
+
+        @Override
+        public String toString() {
+            return "Food: " + name + ", Calories: " + calories;
+        }
+    }
+
+    // Meat class, subclass of Food
+    public static class Meat extends Food {
+        private String cutType;
+
+        public Meat(String name, int calories, String cutType) {
+            super(name, calories);
+            this.cutType = cutType;
+        }
+
+        @Override
+        public void cook() {
+            System.out.println("Grilling or roasting " + getName());
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", Cut: " + cutType;
+        }
+    }
+
+    // Vegetable class, subclass of Food
+    public static class Vegetable extends Food {
+        private boolean isLeafy;
+
+        public Vegetable(String name, int calories, boolean isLeafy) {
+            super(name, calories);
+            this.isLeafy = isLeafy;
+        }
+
+        @Override
+        public void cook() {
+            System.out.println("Boiling or steaming " + getName());
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", Leafy: " + isLeafy;
+        }
+    }
+
+    // Fruit class, subclass of Food
+    public static class Fruit extends Food {
+        private boolean isCitrus;
+
+        public Fruit(String name, int calories, boolean isCitrus) {
+            super(name, calories);
+            this.isCitrus = isCitrus;
+        }
+
+        @Override
+        public void cook() {
+            System.out.println("Eating " + getName() + " fresh.");
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", Citrus: " + isCitrus;
+        }
+    }
+
+    // Main class to test the hierarchy
+    public static void main(String[] args) {
+        Meat steak = new Meat("Steak", 500, "Ribeye");
+        Vegetable spinach = new Vegetable("Spinach", 30, true);
+        Fruit orange = new Fruit("Orange", 100, true);
+
+        System.out.println(steak);
+        steak.cook();
+        System.out.println(spinach);
+        spinach.cook();
+        System.out.println(orange);
+        orange.cook();
+    }
+}
