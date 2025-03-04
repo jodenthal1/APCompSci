@@ -1,0 +1,287 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
+
+// Base class for all game objects
+class GameObject {
+    protected int x, y, width, height, speed;
+    
+    // Constructor to initialize game object properties
+    public GameObject(int x, int y, int width, int height, int speed) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.speed = speed;
+    }
+// Moves the object downward based on its speed
+    public void move() {
+        y += speed;
+    }
+    // Checks if the object collides with the player
+    public boolean checkCollision(Player player) {
+        return (x < player.x + player.width && x + width > player.x &&
+                y < player.y + player.height && y + height > player.y);
+    }
+    // Draws the object as a rectangle
+    public void draw(Graphics g) {
+        g.fillRect(x, y, width, height);
+    }
+}
+
+// Player class
+class Player extends GameObject {
+    int lives;
+    boolean hasShield;
+    boolean hasSpeedBoost;
+    private int normalSpeed;
+    private int boostedSpeed;
+    private int speedBoostDuration;
+    
+// Constructor to initialize player properties
+    public Player(int x, int y, int speed) {
+        super(x, y, 40, 40, speed);
+        this.lives = 3;
+        this.hasShield = false;
+        this.hasSpeedBoost = false;
+        this.normalSpeed = speed;
+        this.boostedSpeed = speed * 2;
+        this.speedBoostDuration = 0;
+    }
+
+        // Movement methods for the player
+    public void moveLeft() { if (x > 0) x -= speed; }
+    public void moveRight() { if (x + width < 400) x += speed; }
+    public void moveUp() { if (y > 0) y -= speed; }
+    public void moveDown() { if (y + height < 400) y += speed; }
+
+        
+   // Handles damage taken by the player
+    public void takeDamage() {
+        if (hasShield) {
+            hasShield = false; // Shield absorbs the damage
+        } else {
+            lives--; // Reduce life if no shield
+        }
+    }
+// Increases player lives, with a max cap of 5
+    public void gainLife() {
+        if (lives < 5) lives++;
+    }
+ // Activates speed boost power-up
+    public void activateSpeedBoost() {
+        hasSpeedBoost = true;
+        speed = boostedSpeed;
+        speedBoostDuration = 100; // Duration counter for boost
+    }
+ // Updates player state, managing speed boost duration
+    public void update() {
+        if (hasSpeedBoost) {
+            speedBoostDuration--;
+            if (speedBoostDuration <= 0) {
+                hasSpeedBoost = false;
+                speed = normalSpeed;
+            }
+        }
+    }
+    
+// Draws the player as a yellow rectangle
+    @Override
+    public void draw(Graphics g) {
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y, width, height);
+    }
+}
+
+// Falling Objects
+class FallingShape extends GameObject {
+    public FallingShape(int x, int y, int speed) {
+        super(x, y, 30, 30, speed);
+    }
+ // Draws the falling shape as a red oval
+    @Override
+    public void draw(Graphics g) {
+        g.setColor(Color.RED);
+        g.fillOval(x, y, width, height);
+    }
+}
+
+// PowerUps
+class PowerUp extends GameObject {
+    public PowerUp(int x, int y, int speed) {
+        super(x, y, 20, 20, speed);
+    }
+// Method to apply power-up effect (to be overridden)
+    public void applyEffect(Player player) {}
+
+    // Draws the power-up as a green rectangle
+    @Override
+    public void draw(Graphics g) {
+        g.setColor(Color.GREEN);
+        g.fillRect(x, y, width, height);
+    }
+}
+
+// Shield power-up class
+class ShieldPowerUp extends PowerUp {
+    public ShieldPowerUp(int x, int y, int speed) { super(x, y, speed); }
+    @Override public void applyEffect(Player player) { player.hasShield = true; }
+    @Override public void draw(Graphics g) { g.setColor(Color.CYAN); g.fillOval(x, y, width, height); }
+}
+// life power-up class
+class LifePowerUp extends PowerUp {
+    public LifePowerUp(int x, int y, int speed) { super(x, y, speed); }
+    @Override public void applyEffect(Player player) { player.gainLife(); }
+    @Override public void draw(Graphics g) { g.setColor(Color.PINK); g.fillOval(x, y, width, height); }
+}
+// Speed Boost power-up class
+class SpeedBoostPowerUp extends PowerUp {
+    public SpeedBoostPowerUp(int x, int y, int speed) { super(x, y, speed); }
+    @Override public void applyEffect(Player player) { player.activateSpeedBoost(); }
+    @Override public void draw(Graphics g) { g.setColor(Color.ORANGE); g.fillOval(x, y, width, height); }
+}
+
+// Game Panel
+class GamePanel extends JPanel implements ActionListener, KeyListener {
+    private Player player;
+    private ArrayList<FallingShape> shapes;
+    private ArrayList<PowerUp> powerUps;
+    private Timer timer;
+    private Random rand;
+    private boolean gameOver;
+
+    
+    public GamePanel() {
+        startGame();
+        addKeyListener(this);
+        setFocusable(true);
+    }
+
+    // Initializes game state
+    public void startGame() {
+        player = new Player(200, 350, 10);
+        shapes = new ArrayList<>();
+        powerUps = new ArrayList<>();
+        rand = new Random();
+        timer = new Timer(100, this);
+        timer.start();
+        gameOver = false;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (!gameOver) {
+            player.update();
+            updateGameObjects();
+        }
+        repaint();
+    }
+    
+// Updates falling shapes and power-ups
+    private void updateGameObjects() {
+        Iterator<FallingShape> shapeIterator = shapes.iterator();
+        while (shapeIterator.hasNext()) {
+            FallingShape shape = shapeIterator.next();
+            shape.move();
+            if (shape.checkCollision(player)) {
+                player.takeDamage();
+                shapeIterator.remove();
+                if (player.lives <= 0) {
+                    gameOver = true;
+                    timer.stop();
+                }
+                break;
+            }
+        }
+// Iterate through the list of power-ups
+        Iterator<PowerUp> powerUpIterator = powerUps.iterator();
+        while (powerUpIterator.hasNext()) {
+            PowerUp p = powerUpIterator.next();
+            p.move();// Move the power-up downward
+            
+              // Check if the player collects the power-up
+            if (p.checkCollision(player)) {
+                p.applyEffect(player);
+                powerUpIterator.remove();
+            }
+        }
+// Randomly generate falling shapes, Powerups at different intervals
+        if (rand.nextInt(20) == 0) shapes.add(new FallingShape(rand.nextInt(400), 0, 5));
+        if (rand.nextInt(100) == 0) powerUps.add(new ShieldPowerUp(rand.nextInt(400), 0, 3));
+        if (rand.nextInt(150) == 0) powerUps.add(new LifePowerUp(rand.nextInt(400), 0, 2));
+        if (rand.nextInt(120) == 0) powerUps.add(new SpeedBoostPowerUp(rand.nextInt(400), 0, 4));
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+           super.paintComponent(g);
+
+    // Draw night sky background
+    g.setColor(Color.BLACK);
+    g.fillRect(0, 0, getWidth(), getHeight());
+
+    // Draw stars
+    g.setColor(Color.WHITE);
+    Random rand = new Random();
+    for (int i = 0; i < 100; i++) { // Adjust the number of stars as needed
+        int starX = rand.nextInt(getWidth());
+        int starY = rand.nextInt(getHeight());
+        int starSize = rand.nextInt(3) + 1; // Random star size (1 to 3 pixels)
+        g.fillOval(starX, starY, starSize, starSize);
+    }
+
+    // Draw game objects
+    player.draw(g);
+    for (FallingShape shape : shapes) shape.draw(g);
+    for (PowerUp p : powerUps) p.draw(g);
+
+    // Draw UI text
+    g.setColor(Color.WHITE);
+    g.drawString("Lives: " + player.lives, 10, 50);
+    g.drawString("Shield: " + (player.hasShield ? "ON" : "OFF"), 10, 70);
+    g.drawString("Speed Boost: " + (player.hasSpeedBoost ? "ON" : "OFF"), 10, 90);
+
+// Display game over message if the game is over
+    if (gameOver) {
+        g.setColor(Color.RED);
+        g.setFont(new Font("Arial", Font.BOLD, 30));
+        g.drawString("GAME OVER", 120, 200);
+        g.setFont(new Font("Arial", Font.PLAIN, 16));
+        g.drawString("Press R to Restart", 140, 250);
+        g.drawString("Press Q to Quit", 150, 280);
+    }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (!gameOver) {     
+            // Handle player movement
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) player.moveLeft();
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) player.moveRight();
+            if (e.getKeyCode() == KeyEvent.VK_UP) player.moveUp();
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) player.moveDown();
+        } else { 
+// Restart or exit the game when game over
+            if (e.getKeyCode() == KeyEvent.VK_R) startGame();
+            if (e.getKeyCode() == KeyEvent.VK_Q) System.exit(0);
+        }
+    }
+// Unused key event methods (required by interface but not needed)
+    @Override public void keyReleased(KeyEvent e) {}
+    @Override public void keyTyped(KeyEvent e) {}
+}
+
+// Main
+public class GameDesign {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Falling Shapes Game");
+        frame.add(new GamePanel());
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}
+
