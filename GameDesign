@@ -1,3 +1,14 @@
+
+/*
+ * Falling Shapes Game
+ * Description: The player controls a character that moves left, right, up, and down to avoid falling obstacles.
+ * Power-ups appear that grant shields, speed boosts, or extra lives.
+ * The game ends when the player loses all lives.
+ * Controls: Arrow keys for movement, 'R' to restart, 'Q' to quit.
+ */
+
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
