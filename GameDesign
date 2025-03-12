@@ -1,14 +1,71 @@
 
 /*
- * Falling Shapes Game
- * Description: The player controls a character that moves left, right, up, and down to avoid falling obstacles.
- * Power-ups appear that grant shields, speed boosts, or extra lives.
- * The game ends when the player loses all lives.
- * Controls: Arrow keys for movement, 'R' to restart, 'Q' to quit.
+DESCRIPTION:
+
+The Falling Shapes Game is an action-packed survival game where players control a 
+character that moves in four directions—left, right, up, and down—within a fixed play area.
+The objective is to avoid falling obstacles that randomly descend from the top of the screen 
+at varying speeds. As the game progresses, players must rely on quick reflexes and strategic 
+movement to survive for as long as possible. To aid in their survival, power-ups occasionally
+appear, offering advantages such as shields for temporary protection, speed boosts for faster 
+movement, and extra lives to extend gameplay. The game ends when the player loses all their 
+lives, at which point a "Game Over" screen is displayed. Players can restart the game by 
+pressing 'R' or quit by pressing 'Q'. The controls are simple, using arrow keys for 
+movement, making the game easy to pick up yet challenging to master. With its 
+fast-paced gameplay and strategic power-ups, the Falling Shapes Game provides an engaging
+and exciting experience for players looking for a fun test of skill and reflexes.
+
+Use Case: Playing the Falling Shapes Game
+
+Actors:
+Player (User)
+
+Preconditions:
+The game is launched, and the player can see the game window.
+
+Main Scenario: Successful Gameplay
+
+Player starts the game by launching the application.
+The system initializes the game environment (player, obstacles, and power-ups).
+The player moves using arrow keys to avoid falling shapes.
+The system continuously updates the game state:
+Falling shapes descend.
+Power-ups appear randomly.
+Player collects power-ups to gain benefits.
+If a falling shape collides with the player:
+If the player has a shield, the shield absorbs the hit.
+Otherwise, the player loses a life.
+The game continues until the player loses all lives.
+Game Over screen appears with restart and quit options.
+
+Alternative Scenario: Player Uses Power-Ups
+
+The player collects a Shield Power-Up → Gains temporary immunity from one hit.
+The player collects a Speed Boost Power-Up → Moves faster for a limited time.
+The player collects a Life Power-Up → Gains an extra life (up to a max of 5).
+
+Alternative Scenario: Game Over and Restart
+
+The player loses all lives, and the system displays the "Game Over" screen.
+The player presses 'R' to restart the game.
+The system resets the game state and starts a new session.
+Alternatively, the player presses 'Q' to quit the game.
+
+Alternative Scenario: Collision with Falling Shapes
+
+A falling shape collides with the player.
+If the player has a shield, the shield is consumed.
+If no shield is active, the player loses a life.
+If the player loses their last life, the game ends.
+
+
+
  */
 
 
 
+
+package com.mycompany.gamedesign;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -64,7 +121,7 @@ class Player extends GameObject {
     }
 
         // Movement methods for the player
-    public void moveLeft() { if (x > 0) x -= speed; }
+    public void moveLeft() { if (x > 0) x -= speed; }                               //case senario
     public void moveRight() { if (x + width < 400) x += speed; }
     public void moveUp() { if (y > 0) y -= speed; }
     public void moveDown() { if (y + height < 400) y += speed; }
@@ -183,7 +240,7 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { 
         if (!gameOver) {
             player.update();
             updateGameObjects();
@@ -295,4 +352,5 @@ public class GameDesign {
         frame.setVisible(true);
     }
 }
+
 
