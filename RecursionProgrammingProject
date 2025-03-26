@@ -1,0 +1,55 @@
+public class RecursionProgrammingProject {
+    
+    public static void main(String[] args) {
+        int n = 7; // Change this to get different lines (0-indexed)
+        
+        int[] line = generateNthLine(n);
+        
+        // Print the line with proper formatting
+        printLine(line, n);
+    }
+    
+    /**
+     * Recursively generate the nth line of Pascal's Triangle
+     * @param n The line number (0-indexed)
+     * @return An array containing the values in the nth line
+     */
+    public static int[] generateNthLine(int n) {
+        // Base case: 0th line is just [1]
+        if (n == 0) {
+            return new int[]{1};
+        }
+        
+        // Recursive case: get previous line and compute current line
+        int[] prevLine = generateNthLine(n - 1);
+        int[] currentLine = new int[n + 1];
+        
+        // First and last elements are always 1
+        currentLine[0] = 1;
+        currentLine[n] = 1;
+        
+        // Calculate each interior value as the sum of the two values above it
+        for (int i = 1; i < n; i++) {
+            currentLine[i] = prevLine[i - 1] + prevLine[i];
+        }
+        
+        return currentLine;
+    }
+    
+    /**
+     * Print a line of Pascal's Triangle with proper formatting
+     * @param line The array containing the line values
+     * @param n The line number for formatting
+     */
+    public static void printLine(int[] line, int n) {
+        System.out.print("Line " + n + ": ");
+        
+        for (int i = 0; i < line.length; i++) {
+            System.out.print(line[i]);
+            if (i < line.length - 1) {
+                System.out.print(" ");
+            }
+        }
+        System.out.println();
+    }
+}
