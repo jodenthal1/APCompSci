@@ -1,0 +1,142 @@
+/*
+ * This Simple Student Form creates a straightforward graphical user interface for collecting basic student information. 
+The application initializes by setting up a small window with text fields for Student ID, Full Name, and Email, along with a 
+dropdown menu for selecting the student's year. Two buttons allow users to save data or clear the form. When the user fills
+in the information and clicks "Save," the application performs basic validation to ensure all fields contain data, then writes
+this information to a text file in the "data" directory (creating this directory if it doesn't exist). Each student record is
+stored as a single line with a timestamp indicating when it was saved. The form provides immediate feedback through a status 
+label at the bottom of the window and confirmation dialogs. After successful saving, the form clears itself automatically to
+prepare for the next entry. All of this functionality is encapsulated in a single class that handles both the interface display
+and the data saving operations, making it an efficient solution for basic data collection needs.
+
+ */
+
+
+package com.mycompany.initialcode;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * Simple Student Data Entry Form
+ * Minimal interface for collecting and saving student information
+ */
+public class Initialcode extends JFrame {
+    
+    // Basic form components
+    private JTextField idField, nameField, emailField;
+    private JComboBox<String> yearCombo;
+    private JButton saveButton, clearButton;
+    private JLabel statusLabel;
+    
+    public Initialcode() {
+        // Basic frame setup
+        setTitle("Student Data Entry");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        // Main panel with simple grid layout
+        JPanel mainPanel = new JPanel(new GridLayout(6, 2, 10, 10));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        
+        // Add form components
+        mainPanel.add(new JLabel("Student ID:"));
+        idField = new JTextField();
+        mainPanel.add(idField);
+        
+        mainPanel.add(new JLabel("Full Name:"));
+        nameField = new JTextField();
+        mainPanel.add(nameField);
+        
+        mainPanel.add(new JLabel("Email:"));
+        emailField = new JTextField();
+        mainPanel.add(emailField);
+        
+        mainPanel.add(new JLabel("Year:"));
+        yearCombo = new JComboBox<>(new String[] {"Freshman", "Sophomore", "Junior", "Senior"});
+        mainPanel.add(yearCombo);
+        
+        // Add buttons
+        saveButton = new JButton("Save");
+        saveButton.addActionListener(e -> saveData());
+        mainPanel.add(saveButton);
+        
+        clearButton = new JButton("Clear");
+        clearButton.addActionListener(e -> clearForm());
+        mainPanel.add(clearButton);
+        
+        // Status label for feedback
+        statusLabel = new JLabel("Ready");
+        statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        // Add panels to frame
+        add(mainPanel, BorderLayout.CENTER);
+        add(statusLabel, BorderLayout.SOUTH);
+    }
+    
+    /**
+     * Save the form data to a simple text file
+     */
+    private void saveData() {
+        // Get form values
+        String id = idField.getText().trim();
+        String name = nameField.getText().trim();
+        String email = emailField.getText().trim();
+        String year = (String) yearCombo.getSelectedItem();
+        
+        // Basic validation
+        if (id.isEmpty() || name.isEmpty() || email.isEmpty()) {
+            statusLabel.setText("Please fill all fields");
+            return;
+        }
+        
+        try {
+            // Create data directory if it doesn't exist
+            File dir = new File("data");
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            
+            // Append to file
+            try (PrintWriter out = new PrintWriter(new FileWriter("data/students.txt", true))) {
+                // Get current timestamp
+                String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                
+                // Write data in simple format
+                out.println(String.format("ID: %s | Name: %s | Email: %s | Year: %s | Timestamp: %s", 
+                           id, name, email, year, timestamp));
+            }
+            
+            statusLabel.setText("Student saved successfully");
+            JOptionPane.showMessageDialog(this, "Student data saved!");
+            clearForm();
+            
+        } catch (IOException ex) {
+            statusLabel.setText("Error saving data");
+            JOptionPane.showMessageDialog(this, "Error saving data: " + ex.getMessage(), 
+                                         "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    /**
+     * Clear all form fields
+     */
+    private void clearForm() {
+        idField.setText("");
+        nameField.setText("");
+        emailField.setText("");
+        yearCombo.setSelectedIndex(0);
+        idField.requestFocus();
+        statusLabel.setText("Form cleared");
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new Initialcode().setVisible(true);
+        });
+    }
+}
